@@ -1,0 +1,29 @@
+--Create an Art Supply Store database--
+
+CREATE TABLE Art_Supply_Store (id INTEGER PRIMARY KEY, item TEXT, brand TEXT, aisle INTEGER, price INTEGER);
+
+INSERT INTO Art_Supply_Store VALUES
+(1, "paint brush set", "Blick", 1, 10),
+(2, "graphite pencil set", "Prismacolor", 1, 10),
+(3, "artist pens", "Micron", 1, 12),
+(4, "charcoal stick set", "Faber-Castell", 1, 30),
+(5, "kneaded eraser", "Faber-Castell", 2, 2),
+(6, "blending stumps", "Mr. Pen", 2, 6),
+(7, "foam brush set", "Blick", 1, 10),
+(8, "sketchbook", "Master's Touch", 3, 10),
+(9, "water color set", "Master's Touch", 4, 25),
+(10, "acrylic paint", "FolkArt", 4, 3),
+(11, "oil pastels", "Sennelier", 4, 30),
+(12, "colored pencil set", "Prismacolor", 1, 35),
+(13, "painter's tape", "Scotch", 5, 5),
+(14, "washi tape", "DesignWorks", 5, 3),
+(15, "canvas board", "Master's Touch", 3, 12);
+
+--Display the database ordered by price.--
+SELECT * FROM Art_Supply_Store ORDER BY price asc;
+
+--Look at price of items by Brand-- 
+SELECT brand, price FROM Art_Supply_Store ORDER BY brand asc;
+
+--What is the most expensive item in each aisle?--
+SELECT aisle, item, price FROM Art_Supply_Store GROUP BY aisle ORDER BY price desc;
