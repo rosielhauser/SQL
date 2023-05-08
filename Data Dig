@@ -224,5 +224,17 @@ INSERT INTO countries(name,population,percent_one_year_change,population_change,
 
 SELECT * FROM countries;
 
+--Find the average, max, and minimum values from the data (population / country)--
+SELECT AVG (population) FROM countries;
+SELECT MAX (population) FROM countries;
+SELECT MIN (population) FROM countries;
+
+--Find the average, max, and minimum values of each column category (population, percent one-year-change, population change, desnity per sq. km, area sq. km, area sq. km, net migrants, fertility rate, median age, percent of world population) using HAVING clause--
+
+
+
+
+
+
 
 
