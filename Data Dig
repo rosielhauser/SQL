@@ -1,4 +1,4 @@
---Create a database with Top Countries by Population and use advanced SELECT queries to discover things about the data--
+--Create a database with Top Countries by Population and use advanced SELECT queries to aggregate the data--
 
 /*
  Countries and dependent territories, 2020
@@ -229,12 +229,44 @@ SELECT AVG (population) FROM countries;
 SELECT MAX (population) FROM countries;
 SELECT MIN (population) FROM countries;
 
---Find the average, max, and minimum values of each column category (population, percent one-year-change, population change, desnity per sq. km, area sq. km, area sq. km, net migrants, fertility rate, median age, percent of world population) using HAVING clause--
+--What are the countries with the highest and lowest populations?--
+SELECT name, MAX (population) FROM countries;
+SELECT name, MIN (population) FROM countries;
 
+--Find all countries where total population is over 100,000,000 and median age is under 50, ordered from largest to smallest population--
+SELECT name, population, median_age FROM countries
+WHERE population > 100000000
+AND median_age < 50
+ORDER BY population desc;
 
+--Creating a new column, find the average density per square meter and then find the country with an average density above 10,000--
+SELECT name, AVG(density_per_sq_km) AS avg_density FROM countries
+GROUP BY name HAVING avg_density > 10000;
 
+--Find minimum, maximum, average fertility rate from the data-- 
+SELECT MIN (fertility_rate) FROM countries;
+SELECT MAX (fertility_rate) FROM countries;
+SELECT AVG (fertility_rate) FROM countries;
 
+--Group each country in a low, average, high, or very high fertility rate category based on the total average births per woman (sort by country name)--
+/*CASE*/
+SELECT name, fertility_rate,
+    CASE
+        WHEN fertility_rate >5 THEN "very high"
+        WHEN fertility_rate >3.5 THEN "high"
+        WHEN fertility_rate >=1.5 THEN "average"
+        WHEN fertility_rate <1.5 THEN "low"
+    END as "global_fertility_score"
+FROM countries
+ORDER BY name;
 
-
-
-
+--How many countries are in each global fertility score category?--
+SELECT COUNT(*),
+   CASE
+        WHEN fertility_rate >5 THEN "very high"
+        WHEN fertility_rate >3.5 THEN "high"
+        WHEN fertility_rate >=1.5 THEN "average"
+        WHEN fertility_rate <1.5 THEN "low"
+    END as "global_fertility_score"
+FROM countries
+GROUP BY global_fertility_score;
