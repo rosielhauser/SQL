@@ -1,0 +1,74 @@
+/* Create table about the people and what they do here */
+
+---The Legend of Zelda Characters (Games: BOTW/TOTK)---
+
+/*Characters*/
+Link
+Princess Zelda
+Ganondorf
+King Rhoam
+Impa
+Purah
+Tulin
+Teba
+Sidon
+Mipha
+Hestu
+---------------------------------------------
+
+CREATE TABLE Zelda_Characters(
+id INTEGER PRIMARY KEY,
+character_id INTEGER,
+name TEXT,
+race TEXT,
+title TEXT);
+
+INSERT INTO Zelda_Characters (character_id, name, race, title) VALUES (1, "Link", "Hylian", "knight");
+INSERT INTO Zelda_Characters (character_id, name, race, title) VALUES (2, "Zelda", "Hylian", "princess");
+INSERT INTO Zelda_Characters (character_id, name, race, title) VALUES (3, "Ganon", "Gerudo", "demon king");
+INSERT INTO Zelda_Characters (character_id, name, race, title) VALUES (4, "Rhoam", "Hylian", "king");
+INSERT INTO Zelda_Characters (character_id, name, race, title) VALUES (5, "Impa", "Sheikah", "royal adviser");
+INSERT INTO Zelda_Characters (character_id, name, race, title) VALUES (6, "Purah", "Sheikah", "researcher");
+INSERT INTO Zelda_Characters (character_id, name, race, title) VALUES (7, "Tulin", "Rito", "warrior");
+INSERT INTO Zelda_Characters (character_id, name, race, title) VALUES (8, "Teba", "Rito", "warrior");
+INSERT INTO Zelda_Characters (character_id, name, race, title) VALUES (9, "Sidon", "Zora", "prince");
+INSERT INTO Zelda_Characters (character_id, name, race, title) VALUES (10, "Mipha", "Zora","princess");
+INSERT INTO Zelda_Characters (character_id, name, race, title) VALUES (11, "Hestu", "Korok", "musician");
+
+
+CREATE TABLE Family
+(id INTEGER PRIMARY KEY,
+character1_id INTEGER,
+character2_id INTEGER,
+relation TEXT);
+
+INSERT INTO Family (character1_id, character2_id, relation) VALUES (2, 4, "daughter, father");
+INSERT INTO Family (character1_id, character2_id, relation) VALUES (5, 6, "sister, older sister");
+INSERT INTO Family (character1_id, character2_id, relation) VALUES(7,8, "son, father");
+INSERT INTO Family (character1_id, character2_id, relation) VALUES(9,10, "brother, sister");
+
+---------------------------------------------------------
+/*QUERIES*/
+
+--Show All Data from Each Table--
+SELECT character_id, name, race, title FROM Zelda_Characters;
+
+
+SELECT * FROM Family;
+-------------------------------------------------------------
+
+SELECT Zelda_Characters.name, Family.relation
+    FROM Zelda_Characters
+    JOIN Family
+    ON Zelda_Characters.Character_id = Family.relation;
+    
+--Show Which Characters are Related using multiple JOINS--
+SELECT a.name, b.name, Family.relation FROM Family,
+JOIN Zelda_Characters a
+ON character1_id = a.character_id
+JOIN Zelda_Characters b
+ON character2_id = b.character_id;
+
+
+
+
