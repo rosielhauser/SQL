@@ -1,15 +1,47 @@
-#In this SQL code, I've queried a database with multiple tables in it in order to quantify statistics about customer and order dataf.
+#In this SQL code, I've queried a database with multiple tables in it in order to quantify statistics about customer and order data, using the RDBMS SQLiteStudio.
 
 
---1. How many orders were placed in January?-- Remember to filter out the blank and incorrect order IDs like we did in the "dealing with messy data" section of the previous lesson!
+--1. How many orders were placed in January?(Filter out the blank and incorrect order IDs)
+SELECT count(orderID)
+FROM BIT_DB.JanSales
+WHERE length(orderID) = 6
+AND orderID <> 'Order ID';
+--Answer = 9681--
 
 --2. How many of those orders were for an iPhone?--
+SELECT count(orderID)
+FROM BIT_DB.JanSales
+WHERE Product = 'iPhone'
+AND length(orderID) = 6
+AND orderID <> 'Order ID';
+--Answer = 379--
 
 --3. Select the customer account numbers for all the orders that were placed in February.--
+SELECT distinct acctnum
+FROM BIT_DB.FebSales Feb
+JOIN BIT_DB.customers cust
+ON Feb.orderID = cust.order_id
+WHERE length(orderID) = 6
+AND orderID <> 'Order ID';
 
 --4. Which product was the cheapest one sold in January, and what was the price?--
+SELECT distinct product, price
+FROM BIT_DB.JanSales
+WHERE price in (SELECT min(price) FROM BIT_DB.JanSales);
+--OR--
+SELECT distinct product, price
+FROM BIT_DB.JanSales
+ORDER BY price asc LIMIT 1;
+--OR--
+SELECT distinct product, price
+FROM BIT_DB.JanSales
+ORDER BY price ASC LIMIT 1;
+--Answer = AAA Batteries (4-pack), $2.99--
 
 --5. What is the total revenue for each product sold in January?-- (Revenue can be calculated using the number of products sold and the price of the products)
+SELECT distinct product, sum(quantity)*price as revenue
+FROM BIT_DB.JanSales
+GROUP BY product;
 
 --6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?--
 
