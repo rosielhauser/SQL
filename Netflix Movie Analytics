@@ -21,9 +21,9 @@ LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_people" people
 ON titles.show_id = people.show_id
 WHERE titles.title= 'Bright Star';
 
---5. What are the two oldest movies in the database and what year were they made?--
+--5. What is the oldest movie in the database and what year was it made?--
 SELECT title, release_year
 FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
 WHERE type='Movie'
-ORDER BY release_year asc.
-LIMIT 2;
+ORDER BY release_year asc
+LIMIT 1;
