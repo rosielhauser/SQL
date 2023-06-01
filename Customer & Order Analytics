@@ -1,6 +1,5 @@
 #In this SQL code, I've queried a database with multiple tables in it in order to quantify statistics about customer and order data, using the RDBMS SQLiteStudio.
 
-
 --1. How many orders were placed in January?(Filter out the blank and incorrect order IDs)
 SELECT count(orderID)
 FROM BIT_DB.JanSales
@@ -64,5 +63,26 @@ AND orderid<> 'Order ID';
 SELECT product, SUM(quantity), location
 FROM BIT_DB.FebSales
 WHERE location like '%Los Angeles%'
-GROUP BY product;;
+GROUP BY product;
+
+--9. Which locations in New York received at least 3 orders in January, and how many orders did they each receive?--
+SELECT distinct count(orderID) AS orders, location
+FROM BIT_DB.JanSales
+WHERE location LIKE '%NY%'
+AND length(orderid)=6
+AND orderid<> 'Order ID'
+GROUP BY location
+HAVING count(orderID) > 2;
+
+--10. How many of each type of headphone were sold in February?--
+SELECT distinct sum(quantity), product
+FROM BIT_DB.FebSales
+WHERE product LIKE '%Headphones%'
+AND length(orderid)=6
+AND orderid<> 'Order ID'
+GROUP BY Product;
+
+
+
+
 
