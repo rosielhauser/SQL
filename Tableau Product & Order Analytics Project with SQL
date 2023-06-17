@@ -1,0 +1,22 @@
+--In this project, I've taken information from a database and queried it using SQL in order to create visualizations with it in Tableau.
+--The link to the final Tableau project can be found here:
+
+--1.Write SQL that will give: The account numbers, the count of order IDs, product, quantity, price, order date, and location for all orders that were placed in February.--
+SELECT cust.acctnum, COUNT(cust.order_id) as Orders
+,feb.product
+,feb.quantity
+,feb.price
+,feb.orderdate
+,feb.location 
+FROM BIT_DB.customers cust
+
+INNER JOIN BIT_DB.FebSales feb
+ON feb.orderID = cust.order_id
+
+GROUP BY
+cust.acctnum
+,feb.product
+,feb.quantity
+,feb.price
+,feb.orderdate
+,feb.location;
